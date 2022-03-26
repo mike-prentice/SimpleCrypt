@@ -5,12 +5,12 @@ import static java.lang.Character.toLowerCase;
 public class ROT13  {
     Character cs;
     Character cf;
-    Integer shift;
+    static Integer shift;
 
     ROT13(Character cs, Character cf) {
         this.cs = cs;
         this.cf = cf;
-        this.shift = cs - cf;
+        shift = cf - cs;
     }
 
     ROT13() {
@@ -20,7 +20,7 @@ public class ROT13  {
 
     public String crypt(String text) throws UnsupportedOperationException {
 
-        return "";
+        return encrypt(text);
     }
 
     public String encrypt(String text) {
@@ -28,13 +28,13 @@ public class ROT13  {
         for(int i = 0; i < text.length(); i++){
             char c = text.charAt(i);
             if(c >= 'a' && c <= 'm'){
-                c += 13;
+                c += shift;
             } else if (c >= 'A' && c <= 'M'){
-                c += 13;
+                c += shift;
             }  else if (c >= 'n' && c <= 'z'){
-                c -= 13;
+                c -= shift;
             }  else if (c >= 'N' && c <= 'Z'){
-                c -= 13;
+                c -= shift;
             }
             System.out.println(sb);
             sb.append(c);
@@ -44,20 +44,15 @@ public class ROT13  {
     }
 
     public String decrypt(String text) {
-
       return  encrypt(text);
     }
 
     public static String rotate(String s, Character c) {
-        int shift = c - 'A';
+        int index = s.indexOf(c);
         StringBuilder sb = new StringBuilder();
-        char ch = 0;
-        for (int i = 0; i < s.length(); i++) {
-            ch = s.toLowerCase().charAt(i);
-            ch += shift;
-            sb.append(ch);
-        }
-
+        sb.append(s.substring(index, s.length()));
+        sb.append(s.substring(0, index));
+        System.out.println(sb);
         return String.valueOf(sb);
     }
 

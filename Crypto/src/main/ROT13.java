@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.Scanner;
+
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static java.lang.Character.toLowerCase;
@@ -6,6 +9,8 @@ public class ROT13  {
     Character cs;
     Character cf;
     static Integer shift;
+    static String line= "";
+    static String line2= "";
 
     ROT13(Character cs, Character cf) {
         this.cs = cs;
@@ -18,12 +23,12 @@ public class ROT13  {
     }
 
 
-    public String crypt(String text) throws UnsupportedOperationException {
+    public static String crypt(String text) throws UnsupportedOperationException {
 
         return encrypt(text);
     }
 
-    public String encrypt(String text) {
+    public static String encrypt(String text) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < text.length(); i++){
             char c = text.charAt(i);
@@ -36,7 +41,7 @@ public class ROT13  {
             }  else if (c >= 'N' && c <= 'Z'){
                 c -= shift;
             }
-            System.out.println(sb);
+
             sb.append(c);
         }
 
@@ -55,5 +60,50 @@ public class ROT13  {
         System.out.println(sb);
         return String.valueOf(sb);
     }
+    public static String readFile() throws FileNotFoundException {
+        String line = "";
+        try (Scanner scanner = new Scanner(new File("/Users/mike/Projects/SimpleCrypt/sonnet18.txt"))){
+            while(scanner.hasNext()){
+                 line += scanner.nextLine() + "\n";
+            }
+    }  return line;
+}
+    public static String readFile2() throws FileNotFoundException {
+        String line2 = "";
+        try (Scanner scanner = new Scanner(new File("/Users/mike/Projects/SimpleCrypt/sonnet18.enc"))){
+            while(scanner.hasNext()){
+                line2 += scanner.nextLine() + "\n";
+            }
+        }  return line2;
+    }
+public static void createFile(){
+    try {
+        File file = new File("/Users/mike/Projects/SimpleCrypt/sonnet18.enc");
+    if(file.createNewFile()) {
+        System.out.println("File Created");
+    } else {
+        System.out.println("File Exists");
+    }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+public static void writeToFile(String text) {
+        try {
+            FileWriter filewriter = new FileWriter("/Users/mike/Projects/SimpleCrypt/sonnet18.enc");
 
+            filewriter.write(text);
+            filewriter.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+}
+public static void encode() throws FileNotFoundException {
+        createFile();
+        readFile();
+        crypt(line);
+        writeToFile(line);
+
+
+}
 }

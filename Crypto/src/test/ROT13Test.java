@@ -1,4 +1,8 @@
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
+
 import static org.junit.Assert.*;
 
 public class ROT13Test {
@@ -87,4 +91,29 @@ public class ROT13Test {
         assertTrue(actual.equals(Q1));
     }
 
+    @Test
+    public void cryptTest3() throws FileNotFoundException {
+        // Given
+        ROT13 cipher = new ROT13('a', 'n');
+
+        String Q1 = ROT13.readFile();
+        System.out.println(Q1);
+
+        // When
+        String actual = cipher.crypt(Q1);
+        System.out.println(actual);
+        // Then
+        assertFalse(actual.equals(Q1));
+    }
+
+    @Test
+    public void encodeTest() throws FileNotFoundException {
+    ROT13.encode();
+    String original = ROT13.readFile();
+    String encrypted = ROT13.readFile2();
+        System.out.println(encrypted);
+        ROT13.crypt(encrypted);
+        Assert.assertEquals(original, encrypted);
+
+    }
 }

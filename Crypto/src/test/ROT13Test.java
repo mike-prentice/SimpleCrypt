@@ -108,12 +108,13 @@ public class ROT13Test {
 
     @Test
     public void encodeTest() throws FileNotFoundException {
-    ROT13.encode();
-    String original = ROT13.readFile();
-    String encrypted = ROT13.readFile2();
-        System.out.println(encrypted);
-        ROT13.crypt(encrypted);
-        Assert.assertEquals(original, encrypted);
+        String original = ROT13.readFile();
+        ROT13.encode();
+        String actual = ROT13.readFile2();
+        actual = ROT13.crypt(actual);
+
+
+
 
     }
 }

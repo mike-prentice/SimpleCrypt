@@ -61,21 +61,24 @@ public class ROT13  {
         return String.valueOf(sb);
     }
     public static String readFile() throws FileNotFoundException {
-        String line = "";
         try (Scanner scanner = new Scanner(new File("/Users/mike/Projects/SimpleCrypt/sonnet18.txt"))){
             while(scanner.hasNext()){
                  line += scanner.nextLine() + "\n";
             }
     }  return line;
 }
+
+
     public static String readFile2() throws FileNotFoundException {
-        String line2 = "";
         try (Scanner scanner = new Scanner(new File("/Users/mike/Projects/SimpleCrypt/sonnet18.enc"))){
             while(scanner.hasNext()){
                 line2 += scanner.nextLine() + "\n";
             }
         }  return line2;
     }
+
+
+
 public static void createFile(){
     try {
         File file = new File("/Users/mike/Projects/SimpleCrypt/sonnet18.enc");
@@ -88,7 +91,11 @@ public static void createFile(){
         e.printStackTrace();
     }
 }
+
+
+
 public static void writeToFile(String text) {
+    createFile();
         try {
             FileWriter filewriter = new FileWriter("/Users/mike/Projects/SimpleCrypt/sonnet18.enc");
 
@@ -98,11 +105,14 @@ public static void writeToFile(String text) {
             e.printStackTrace();
         }
 }
+
+
+
 public static void encode() throws FileNotFoundException {
-        createFile();
+        line= "";
         readFile();
-        crypt(line);
-        writeToFile(line);
+       line2 = crypt(line);
+        writeToFile(line2);
 
 
 }
